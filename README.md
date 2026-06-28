@@ -24,32 +24,14 @@ AskPDF is an interactive web application that allows users to upload multiple PD
 
 ---
 
-## 📋 System Architecture
-
-The application follows the classic **Retrieval-Augmented Generation (RAG)** architectural pattern:
-
-```
-[ Upload PDFs ] ➔ [ Extract Raw Text ] ➔ [ Chunk Text (Recursive Splitter) ]
-                                                            │
-[ Generate Answers ] 🎛️ [ Gemini LLM ]  backward [ Vector Store (FAISS) ] 🗂️ [ Embeddings ]
-
-```
-
-1. **Ingestion:** The app extracts raw text strings sequentially page-by-page from the uploaded documents.
-2. **Chunking:** Text is broken down into structured chunks of 10,000 characters with a 1,000-character safety overlap to preserve contextual continuity.
-3. **Vectorization:** Chunks are translated into high-dimensional semantic coordinates using `gemini-embedding-001`.
-4. **Indexing:** The vectors are indexed locally into a FAISS storage directory (`faiss_index/`).
-5. **Retrieval & Generation:** When a question is submitted, the app runs a similarity search to isolate the top matching text snippets, packages them into a targeted prompt template, and sends them to `gemini-2.5-flash` for factual generation.
-
----
-
 ## 🔧 Installation & Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/askpdf-rag-chatbot.git
-cd askpdf-rag-chatbot
+git clone https://github.com/dishashetty06/AskPDF.git
+cd AskPDF
+cd langhchain
 
 ```
 
@@ -76,7 +58,6 @@ Create a `.env` file in the root directory of the project and insert your Google
 GOOGLE_API_KEY=your_actual_gemini_api_key_here
 
 ```
-
 ---
 
 ## 💻 How to Run
@@ -85,7 +66,6 @@ Launch the Streamlit dashboard by executing the following command in your termin
 
 ```bash
 streamlit run app.py
-
 ```
 
 1. Open the local URL provided by Streamlit (usually `http://localhost:8501`).
